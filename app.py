@@ -4,7 +4,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import numpy as np
 
 # Load the model
-model = tf.keras.models.load_model('shakespeare_text_generator.h5')
+model = tf.keras.models.load_model('iris_poem_generator.h5')
 
 # Load the tokenizer from training (you need to save this tokenizer when you train your model)
 # For demonstration, we'll recreate the tokenizer as in the training script
