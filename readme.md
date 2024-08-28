@@ -1,26 +1,43 @@
-# Iris Poem Text Generator
+# Irish Poem Text Generator
 
-This Streamlit app generates text in the style of Iris poem using a machine learning model trained on Shakespeare's works. The app takes a user-provided seed text and generates a continuation based on the patterns it learned during training.
+This project is a text generation model trained on a dataset of Irish poems. The model generates text that mimics the style and content of Irish poetry.
 
-## Techniques Used
+## Overview
 
-1. **Text Preprocessing**: 
-   - The model was trained on a corpus of Iris poem text, which was cleaned and preprocessed to lowercase and split into sequences.
-   - A tokenizer was used to convert words into numerical representations, which are easier for the model to understand.
+The Irish Poem Text Generator is a machine learning application that uses a Long Short-Term Memory (LSTM) neural network to generate text based on Irish poetry. This project demonstrates the capabilities of deep learning in natural language processing (NLP), specifically in generating text that follows the patterns and styles of a given corpus.
 
-2. **Neural Network Architecture**:
-   - The model uses a **Bidirectional Long Short-Term Memory (LSTM)** network, which can learn from both the past and future context of a word, making it effective for generating coherent text.
-   - **Dropout layers** were added to the model to prevent overfitting and help it generalize better to new data.
+## Dataset
 
-3. **Pre-trained Word Embeddings**:
-   - **GloVe word embeddings** were used to initialize the model’s word representations. These embeddings capture the semantic meaning of words based on their usage in a large corpus of text, providing a richer understanding of language.
+The dataset used for training this model consists of a collection of Irish poems. The text data has been preprocessed to lower case and split into sequences for model training.
 
-4. **Callbacks**:
-   - **Early Stopping** was used to halt training once the model's performance stopped improving, helping to avoid overfitting.
-   - **Model Checkpoints** were used to save the best version of the model during training.
+## Model Architecture
 
-## How to Use the App
+The model uses a sequential neural network architecture with the following layers:
 
-1. Enter a starting text (seed text) in the input box.
-2. Choose the number of words you want to generate.
-3. Click the "Generate Text" button to see the generated Iris-poem-like text.
+1. **Embedding Layer**: Converts integer-encoded words into dense vectors of fixed size. This layer helps the model to learn word embeddings during training.
+
+2. **LSTM Layer**: A single-direction Long Short-Term Memory (LSTM) layer with 100 units, which is well-suited for sequential data and helps the model remember long-term dependencies in the text.
+
+3. **Dropout Layer**: Adds dropout to prevent overfitting by randomly setting a fraction of input units to 0 at each update during training time.
+
+4. **Dense Layer**: A fully connected layer with a softmax activation function to predict the next word in the sequence.
+
+## Training
+
+The model was trained using the following configurations:
+
+- **Loss Function**: Categorical cross-entropy was used as the loss function since this is a multi-class classification problem where the model predicts the next word in a sequence.
+  
+- **Optimizer**: Adam optimizer was used for training, which is an adaptive learning rate optimization algorithm designed specifically for training deep neural networks.
+
+- **Batch Size**: Training was conducted with a suitable batch size to optimize memory usage and performance.
+
+- **Epochs**: The model was trained for a sufficient number of epochs to ensure convergence without overfitting.
+
+## Usage
+
+To generate new text based on Irish poetry, the model takes a seed text as input and predicts the next word in the sequence. This process is repeated to generate a sequence of text.
+
+### Streamlit Application
+
+A Streamlit application has been created to provide an easy-to-use interface for generating text with the trained model. Users can input a seed phrase and specify the number of words they want to generate.
