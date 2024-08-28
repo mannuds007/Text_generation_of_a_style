@@ -2,28 +2,19 @@ import streamlit as st
 import tensorflow as tf
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import numpy as np
+import pickle
 
-# Load the model
-model = tf.keras.models.load_model('iris_poem_generator.h5')
 
-# Load the tokenizer from training (you need to save this tokenizer when you train your model)
-# For demonstration, we'll recreate the tokenizer as in the training script
-from tensorflow.keras.preprocessing.text import Tokenizer
+model = tf.keras.models.load_model('iris_poem_generator_reduced.h5')
 
-# Initialize the tokenizer
-tokenizer = Tokenizer()
 
-# Load the Shakespeare dataset to fit the tokenizer again (if not saved separately)
-data = open('/tmp/shakespeare.txt').read()
-corpus = data.lower().split("\n")
-tokenizer.fit_on_texts(corpus)
+with open('tokenizer.pkl', 'rb') as handle:
+    tokenizer = pickle.load(handle)
 
-total_words = len(tokenizer.word_index) + 1
 
-# Max sequence length from training
-max_sequence_len = 10  # Replace with your actual max_sequence_len from training
+max_sequence_len = 10
 
-# Function to generate text
+
 def generate_text(seed_text, next_words=50):
     for _ in range(next_words):
         token_list = tokenizer.texts_to_sequences([seed_text])[0]
@@ -39,13 +30,12 @@ def generate_text(seed_text, next_words=50):
 
 # Streamlit app interface
 st.title('Shakespeare Text Generator')
-st.write("This app generates text based on a trained model using Shakespeare's works.")
+st.write("Generate text based on Shakespeare's works using a machine learning model.")
 
-# User input
 seed_text = st.text_input('Enter the starting text:', 'To be or not to be')
 next_words = st.slider('Number of words to generate:', min_value=1, max_value=100, value=20)
 
-# Generate text on button click
+
 if st.button('Generate Text'):
     generated_text = generate_text(seed_text, next_words)
     st.write(generated_text)
