@@ -1,7 +1,3 @@
-Here's a simple README file for your Streamlit app that describes the techniques used:
-
----
-
 # Shakespeare Text Generator
 
 This Streamlit app generates text in the style of Shakespeare using a machine learning model trained on Shakespeare's works. The app takes a user-provided seed text and generates a continuation based on the patterns it learned during training.
